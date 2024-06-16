@@ -141,7 +141,7 @@ namespace divitiae_api.Controllers
 
                     Workspace ws = await _workspaceServices.GetWorkspaceById(workspaceId);
 
-                    App app = new App() { AppName = request.AppName, AppIconId = request.AppIconId, Fields = request.Fields, RelationFields = request.FieldsRelation, WorkspaceId = ws.Id };
+                    App app = new App() { AppName = request.AppName, AppIconId = request.AppIconId, Fields = request.Fields, RelationFields = request.FieldsRelation, WorkspaceId = ws.Id.ToString() };
 
                     await _appServices.InsertApp(app, session);
                     foreach(var field in app.Fields)

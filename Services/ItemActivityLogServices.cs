@@ -37,7 +37,7 @@ namespace divitiae_api.Services
         /// </summary>
         /// <param name="log"></param>
         /// <returns>ItemActivityLog</returns>
-        public async Task<ItemActivityLog> InsertItemActivityLog(ItemActivityLog log)
+        public async Task<ItemActivityLogDTO> InsertItemActivityLog(ItemActivityLog log)
         {
             var sessionOptions = new ClientSessionOptions { CausalConsistency = true };
             using (var session = await _divitiaeClient.StartSessionAsync(sessionOptions))
@@ -46,7 +46,16 @@ namespace divitiae_api.Services
                 try
                 {
                     await _itemActivityLogCollection.InsertOneAsync(log);
-                    return log;
+                    ItemActivityLogDTO item = new ItemActivityLogDTO()
+                    {
+                        Id = log.Id.ToString(),
+                        ItemId = log.ItemId,
+                        AppId = log.AppId,
+                        CreatorId = log.CreatorId,
+                        UnixCreatedOn   = log.UnixCreatedOn,
+                        LogText = log.LogText
+                    };
+                    return item;
                 }
                 catch (Exception ex)
                 {

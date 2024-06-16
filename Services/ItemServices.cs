@@ -104,7 +104,7 @@ namespace divitiae_api.Services
                 string clientRelatedId = sampleClientsItems[randomClientIndex].Id.ToString();
                 string clientRelatedName = sampleClientsItems[randomClientIndex].DescriptiveName;
                 List<RelatedItem> relatedItems = new List<RelatedItem>() { new RelatedItem(clientRelatedName, clientRelatedId) };
-                ItemRelation itemRelations = new ItemRelation(sampleClientsApp.Id.ToString(), sampleClientsApp.AppName, relatedItems);
+                ItemRelation itemRelations = new ItemRelation(sampleClientsApp.Id.ToString(), sampleClientsApp.AppName, sampleClientsApp.WorkspaceId.ToString(), relatedItems);
                 FieldValue value6 = new FieldValue(app.Fields.ElementAt(0), "This is a description for invoice number " + i);
                 FieldValue value7 = new FieldValue(app.Fields.ElementAt(1), active);
                 FieldValue value8 = new FieldValue(app.Fields.ElementAt(2), ((DateTimeOffset)date).ToUnixTimeSeconds());
@@ -123,7 +123,7 @@ namespace divitiae_api.Services
                 ItemRelation relation = relatedClient.Relations.FirstOrDefault(rel => rel.RelatedAppId == app.Id.ToString());
                 if (relation == null)
                 {
-                    relation = new ItemRelation(app.Id.ToString(), app.AppName, new List<RelatedItem>());
+                    relation = new ItemRelation(app.Id.ToString(), app.AppName, app.WorkspaceId.ToString(), new List<RelatedItem>());
                     relatedClient.Relations.Add(relation);
                 }
 
@@ -264,43 +264,6 @@ namespace divitiae_api.Services
         }
 
 
-        //public async Task<List<ItemDTO>> GetAppItemsFiltered(string appId, IEnumerable<FilterObject> filters)
-        //{
-        //    var itemAppCollection = _divitiaeDatabase.GetCollection<Item>(appId);
-
-        //    List<ItemDTO> itemsDTO = new List<ItemDTO>();
-
-        //    var filterBuilder = Builders<Item>.Filter;
-        //    var filterList = filterBuilder.Empty;
-        //    foreach (var filter in filters)
-        //    {
-        //        if (!string.IsNullOrEmpty(filter.FieldName) && !string.IsNullOrEmpty(filter.FieldValue))
-        //        {
-        //            //filterList &= Builders<Item>.Filter.Regex(filter.FieldName, new MongoDB.Bson.BsonRegularExpression(filter.FieldValue, "i"));
-        //            filterList &= filterBuilder.ElemMatch(
-        //                item => item.FieldsValue,
-        //                Builders<FieldValue>.Filter.And(
-        //                    Builders<FieldValue>.Filter.Eq(fv => fv.NameAsProperty, filter.FieldName),
-        //                    Builders<FieldValue>.Filter.Regex(fv => fv.Value, new BsonRegularExpression(filter.FieldValue, "i"))
-        //                )
-        //            );
-        //        }
-        //    }
-        //    List<Item> items = await itemAppCollection.FindAsync(filterList).Result.ToListAsync();
-        //    foreach (Item item in items)
-        //    {
-        //        ItemDTO itemDTO = new ItemDTO
-        //        {
-        //            Id = item.Id.ToString(),
-        //            DescriptiveName = item.DescriptiveName,
-        //            FieldsValue = item.FieldsValue,
-        //            FieldsRelationValue = item.FieldsRelationValue,
-        //            Relations = item.Relations
-        //        };
-        //        itemsDTO.Add(itemDTO);
-        //    }
-        //    return itemsDTO;
-        //}
 
 
         /// <summary>
@@ -345,7 +308,7 @@ namespace divitiae_api.Services
                     {
                         List<RelatedItem> relatedItems = new List<RelatedItem>() { new RelatedItem(item.DescriptiveName, item.Id.ToString()) };
 
-                        ItemRelation itemRelation = new ItemRelation(appId, app.AppName, relatedItems);
+                        ItemRelation itemRelation = new ItemRelation(appId, app.AppName, app.WorkspaceId.ToString(),relatedItems);
                         foreach (RelatedItem re in frv.Value.RelatedItems)
                         {
                             Item relatedItem = await GetAppItemById(re.RelatedItemId, frv.Value.RelatedAppId);
@@ -484,7 +447,7 @@ namespace divitiae_api.Services
                 List<RelatedItem> relatedItems = new List<RelatedItem>();
                 relatedItems.Add(new RelatedItem(item.DescriptiveName, id));
 
-                relItem.Relations.Add(new ItemRelation(appId, app.AppName, relatedItems));
+                relItem.Relations.Add(new ItemRelation(appId, app.AppName, app.WorkspaceId.ToString(), relatedItems));
             }
             await UpdateItem(item, appId, session);
             await UpdateItem(relItem, rel.RelatedAppId, session);

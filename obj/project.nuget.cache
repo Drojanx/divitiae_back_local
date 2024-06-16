@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xWAWKJ+yu3zf8PkKIR2i255A+V6xhAdaiLRKKjQXM1/HYuGd/cly/RCCkGX3/LMJoFjTlYYhSSjtx8Ie7nsW8g==",
+  "dgSpecHash": "UzCpXSwfWLY3y0mA4onv/hTrtNVWxzP3RTaYXbmUs0eNXn/STbswmcP5bfrufgp+AmvOdx7FZCBjkJjXHXNt6w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_api\\divitiae_api.csproj",
+  "projectFilePath": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_back_local\\divitiae_api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\droja\\.nuget\\packages\\autofac\\6.4.0\\autofac.6.4.0.nupkg.sha512",
     "C:\\Users\\droja\\.nuget\\packages\\autofac.extensions.dependencyinjection\\8.0.0\\autofac.extensions.dependencyinjection.8.0.0.nupkg.sha512",

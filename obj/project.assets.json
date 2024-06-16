@@ -4267,11 +4267,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_api\\divitiae_api.csproj",
+      "projectUniqueName": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_back_local\\divitiae_api.csproj",
       "projectName": "divitiae_api",
-      "projectPath": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_api\\divitiae_api.csproj",
+      "projectPath": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_back_local\\divitiae_api.csproj",
       "packagesPath": "C:\\Users\\droja\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_api\\obj\\",
+      "outputPath": "C:\\Users\\droja\\Desktop\\DIVITIAE\\BACK\\divitiae_back_local\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\droja\\AppData\\Roaming\\NuGet\\NuGet.Config",

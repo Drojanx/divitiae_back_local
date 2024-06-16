@@ -115,7 +115,7 @@ namespace divitiae_api.Controllers
         {
             try
             {
-                User user = await _userServices.GetUserById(id);
+                User user = await _userServices.GetBasicUserById(id);
                 return Ok(user);
             }
             catch (ItemNotFoundException ex)
@@ -240,8 +240,11 @@ namespace divitiae_api.Controllers
                         environment.UserToWorkEnvRole.Add(usrToWRRole);
                         workspace.Users.Add(user);
 
+                        await _userServices.InsertUser(user);
+                        await _context.SaveChangesAsync();
 
-                        List<App> sampleApps = await _appServices.InsertWelcomeApps(session);
+
+                        List<App> sampleApps = await _appServices.InsertWelcomeApps(session, workspace);
 
                         foreach (App app in sampleApps)
                         {
@@ -252,15 +255,21 @@ namespace divitiae_api.Controllers
                             };
 
                             workspace.WsAppsRelations.Add(wsAppsRelation);
-                            app.WorkspaceId = workspace.Id;
+                            app.WorkspaceId = workspace.Id.ToString();
                             await _appServices.UpdateApp(app);
                         }
 
                         environment.Workspaces.Add(workspace);
+                        await _context.SaveChangesAsync();
+
+                    }
+                    else
+                    {
+                        await _userServices.InsertUser(user);
+                        await _context.SaveChangesAsync();
+
                     }
 
-                    await _userServices.InsertUser(user);
-                    await _context.SaveChangesAsync();
                     transaction.Commit();
 
                     MailRequest mailRequest = new MailRequest();
@@ -543,7 +552,7 @@ namespace divitiae_api.Controllers
             workspace.Users.Add(user);
 
 
-            List<App> sampleApps = await _appServices.InsertWelcomeApps(session);
+            List<App> sampleApps = await _appServices.InsertWelcomeApps(session, workspace);
 
             foreach (App app in sampleApps)
             {
@@ -554,7 +563,7 @@ namespace divitiae_api.Controllers
                 };
 
                 workspace.WsAppsRelations.Add(wsAppsRelation);
-                app.WorkspaceId = workspace.Id;
+                app.WorkspaceId = workspace.Id.ToString();
                 await _appServices.UpdateApp(app);
             }
 

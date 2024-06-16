@@ -248,7 +248,7 @@ namespace divitiae_api.Controllers
                             fv.Value = fv.Value.ToString(); 
                             break;
                         case "int":
-                            fv.Value = int.Parse(fv.Value);
+                            fv.Value = double.Parse(fv.Value.ToString(), CultureInfo.InvariantCulture);
                             break;
                         case "decimal":
                         case "currency":

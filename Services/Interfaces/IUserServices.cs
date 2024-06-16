@@ -12,6 +12,7 @@ namespace divitiae_api.Services.Interfaces
         Task UpdateUser(User user);
         Task DeleteUser(string id);
         Task<List<User>> GetAllUsers();
+        Task<User> GetBasicUserById(string id);
         Task<User> GetUserById(string id);
         //Task<User> GetUserByGoogleId(string id);
         Task<UserDataDTO> GetCurrentUserWithWorkEnvironmentsAndWorkspaces(User user);

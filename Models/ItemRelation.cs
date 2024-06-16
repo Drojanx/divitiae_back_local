@@ -6,14 +6,16 @@ namespace divitiae_api.Models
 {
     public class ItemRelation
     {
-        public ItemRelation(string relatedAppId, string relatedAppName, List<RelatedItem> relatedItems)
+        public ItemRelation(string relatedAppId, string relatedAppName, string relatedWorkspaceId, List<RelatedItem> relatedItems)
         {
             RelatedAppId = relatedAppId;
             RelatedAppName = relatedAppName;
             RelatedItems = relatedItems;
+            RelatedWorkspaceId = relatedWorkspaceId;
         }
 
         public string RelatedAppName { get; set; } = string.Empty;
+        public string RelatedWorkspaceId { get; set; } = string.Empty;
         public string RelatedAppId { get; set; } = string.Empty;
         public List<RelatedItem> RelatedItems { get; set; }
 

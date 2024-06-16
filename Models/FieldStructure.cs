@@ -36,16 +36,18 @@ namespace divitiae_api.Models
             this.AppRelationName = appRelationName;
         }
 
-        public FieldStructureRelation(string name, string type, string appRelationId, string appRelationName) 
+        public FieldStructureRelation(string name, string type, string appRelationId, string appRelationName, string workspaceRelationId) 
             : base(name, type) 
         {
             this.AppRelationId = appRelationId;
             this.AppRelationName = appRelationName;
+            this.WorkspaceRelationId = workspaceRelationId;
         }
         
         public FieldStructureRelation() { }
 
 
+        public string WorkspaceRelationId { get; set; } = string.Empty;
         public string AppRelationId { get; set; } = string.Empty;
         public string AppRelationName { get; set; } = string.Empty;
 

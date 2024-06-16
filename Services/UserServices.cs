@@ -192,6 +192,13 @@ namespace divitiae_api.Services
 
         }
 
+        public async Task<User> GetBasicUserById(string id)
+        {
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Id.ToString() == id);
+            return user ?? throw new ItemNotFoundException("User", "Id", id);
+
+        }
+
         public string HashPassword(string password)
         {
             SHA256 hash = SHA256.Create();

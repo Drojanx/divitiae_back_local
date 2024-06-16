@@ -7,7 +7,7 @@ namespace divitiae_api.Services.Interfaces
     {
         Task InsertApp(App ap, IClientSessionHandle session);
         Task InsertApp(App app);
-        Task<List<App>> InsertWelcomeApps(IClientSessionHandle session);
+        Task<List<App>> InsertWelcomeApps(IClientSessionHandle session, Workspace ws);
         Task<List<Item>> InsertWelcomeClientsApp(App app, IClientSessionHandle session);
         Task InsertWelcomeInvoicesApp(App app, App sampleClientsApp, List<Item> sampleClientsItems, IClientSessionHandle session);
         //Task UpdateApp(App app, IClientSessionHandle session);

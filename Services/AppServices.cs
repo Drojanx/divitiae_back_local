@@ -49,7 +49,7 @@ namespace divitiae_api.Services
                 await _mongoDivitiaeDatabase.DropCollectionAsync(id);
                 var filter = Builders<App>.Filter.Eq(s => s.Id, new ObjectId(id));
                 await _appCollection.DeleteOneAsync(filter);
-                Workspace ws = _context.Workspaces.Include(ws => ws.WsAppsRelations).FirstOrDefault(ws => ws.Id == app.WorkspaceId)
+                Workspace ws = _context.Workspaces.Include(ws => ws.WsAppsRelations).FirstOrDefault(ws => ws.Id.ToString() == app.WorkspaceId)
                     ?? throw new ItemNotFoundException("Workspace", "Id", app.WorkspaceId.ToString());
                 if (ws.WsAppsRelations.Any(wsAppRel => wsAppRel.AppId == id))
                 {
@@ -154,7 +154,7 @@ namespace divitiae_api.Services
         /// </summary>
         /// <param name="session"></param>
         /// <returns>Lista de aplicaciones</returns>
-        public async Task<List<App>> InsertWelcomeApps(IClientSessionHandle session)
+        public async Task<List<App>> InsertWelcomeApps(IClientSessionHandle session, Workspace ws)
         {
             List<FieldStructure> sampleFieldsClients = new List<FieldStructure>
                 {
@@ -164,7 +164,7 @@ namespace divitiae_api.Services
                     new FieldStructure("Total", "decimal"),
                     new FieldStructure("Discount", "decimal")
                 };
-            App clientsApp = new App() { AppName = "Clients Sample", AppIconId = "icon-55", Fields = sampleFieldsClients };
+            App clientsApp = new App() { AppName = "Clients Sample", AppIconId = "icon-55", WorkspaceId = ws.Id.ToString(),Fields = sampleFieldsClients };
 
             List<Item> ClientsSample = await InsertWelcomeClientsApp(clientsApp, session);
 
@@ -178,10 +178,10 @@ namespace divitiae_api.Services
 
             List<FieldStructureRelation> sampleFieldsRelationInvoices = new List<FieldStructureRelation>
                 {
-                    new FieldStructureRelation("Client", "itemRelation", clientsApp.Id.ToString(), clientsApp.AppName)
+                    new FieldStructureRelation("Client", "itemRelation", clientsApp.Id.ToString(), clientsApp.AppName, ws.Id.ToString())
                 };
 
-            App invoicesApp = new App() { AppName = "Invoices Sample", AppIconId = "icon-180", Fields = sampleFieldsInvoices, RelationFields = sampleFieldsRelationInvoices };
+            App invoicesApp = new App() { AppName = "Invoices Sample", AppIconId = "icon-180", WorkspaceId = ws.Id.ToString(), Fields = sampleFieldsInvoices, RelationFields = sampleFieldsRelationInvoices };
 
             await InsertWelcomeInvoicesApp(invoicesApp, clientsApp, ClientsSample, session);
 

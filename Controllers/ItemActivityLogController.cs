@@ -98,7 +98,7 @@ namespace divitiae_api.Controllers
                     UnixCreatedOn = log.UnixCreatedOn,
                     LogText = log.LogText
                 };
-
+                
                 return Ok(await _itemActivityLogServices.InsertItemActivityLog(iLog));
             }
             catch (ItemNotFoundException ex)
